@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="PS team DataBase">
+    
+    <title> {{title}}</title>
+    
+       <!-- import the webpage's stylesheet -->
+    <link rel="shortcut icon" href="https://play.pokemonshowdown.com/favicon.ico">
+    <link rel="stylesheet" href="https://play.pokemonshowdown.com/style/sim-types.css">
+    <link rel="stylesheet" href="https://play.pokemonshowdown.com/style/battle.css">
+    <link rel="stylesheet" href="https://play.pokemonshowdown.com/style/utilichart.css">
+    <link rel="stylesheet" href="https://play.pokemonshowdown.com/style/font-awesome.css">
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link href="static/main.css" rel="stylesheet" type="text/css">
+    <style>
+    .dark-mode {
+      background: #111;
+      color: #eee;
+    }
+    .lunaball {
+      list-style-image: url(https://play.pokemonshowdown.com/sprites/itemicons/moon-ball.png)
+    }
+    </style>
+  </head>
+  <body>
+  <script>
+  function nuit() {
+     var element = document.body;
+     var point = document.getElementById("myMenu");
+     element.classList.toggle("dark-mode");
+     point.classList.toggle("lunaball");
+  }
+  </script>
+  <button onclick="nuit()" class="button" id="dark">Toggle Dark Mode</button>
+  <p style="text-align: center ; color: #41b9e1"><i>Bienvenue les Poképotes</i><font style="color: #e1b941"><i>!</i></font>
+  <br><a href="https://pastebin.com/CEC0QjBN" target="_blank" rel="noopener"># list</a>&nbsp;*&nbsp;
+  <a href="https://pastebin.com/TEdFGM8i" target="_blank" rel="noopener">Crédits</a>&nbsp;*&nbsp;
+  <a href="result" rel="noopener">CSV</a>&nbsp;*&nbsp;
+  <a href="index1" rel="noopener">Upload team!</a></p>
+  <div class="container">
+  Press enter after you typed.
+  <div class="tag-container">
+  <input  />  
+  </div>
+
+  <p id="demo"></p>
+
+  <ul id="myMenu">
+  </ul>
+  </div>
+    
+<script src="static/script.js"></script>    
+<script src="static/main.js"></script>
+
+</body>
+</html>

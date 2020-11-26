@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+   <center>
+     <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="static/style.css" />
+    <title> {{title}}</title>
+  </head>
+  <body>
+    <h1>
+      UPLOAD
+    </h1>
+      <form action="/result" id="textform" method="post">
+        <p>Pokepaste</p>
+        <input type="text" name="team" />
+
+        <br /><input type="submit" value="Submit" />
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Notes</th>
+            <th>Paste</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for art in art %}
+          <tr>
+            <td>{{ art.Title }}</td>
+            <td>{{ art.Author }}</td>
+            <td>{{ art.Notes }}</td>
+            <td>{{ art.Paste }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </body>
+  </center>
+</html>

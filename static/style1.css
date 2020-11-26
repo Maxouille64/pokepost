@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Rokkitt:800&display=swap");
+
+h1 {
+  font-size: 50px;
+  color: #393EA3;
+  font-family: "Rokkitt", sans-serif;
+}
+body {
+  background-color: #FEFACC;
+  text-align: center;
+}
+
+p {
+/*   top: 375px; */
+  font-family:"Rokkitt", sans-serif;
+  color: #393EA3;
+}

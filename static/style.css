@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css?family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap"); 
+
+form {
+  position: absolute;
+  left: 150px;
+  font-size: 26px;
+  color: #8489F0;
+  font-family: "Lobster", sans-serif;
+}
+input[type="text"] {
+  position: relative;
+  background-color: #393EA3;
+  border: 1px solid white;
+  color: white;
+  padding: 8px 25px;
+  font-size: 20px;
+  cursor: pointer;
+  font-family: "Lobster";
+  border-radius: 10px;
+}
+
+input[type="submit"] {
+  position: relative;
+  background-color: #393EA3;
+  border: 1px solid white;
+  padding: 8px 25px;
+  margin: 30px;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  border-radius: 10px;
+  font-family: "Abril Fatface";
+}
+
+body{
+  background-color: #FEFACC;
+}
+
+h1 {
+  color: #F5CB09;
+  font-family: "Abril Fatface";
+  font-size: 50px;
+}
+
+table {
+  position: absolute;
+  right: 150px;
+  top: 170px;
+  border-collapse: collapse;
+  width: 600px;
+}
+
+table, th, td {
+  border: 1px solid black; 
+}
+
+th {
+  height: 50px;
+}
+
+tbody {
+  background-color: #BCC7F9;
+  color: black;
+  font-family: "Abril Fatface", sans-serif;
+}
+
+thead {
+  background-color: #F5EA76;
+  font-family: "Lobster", sans-serif;
+  color: black;
+}
+

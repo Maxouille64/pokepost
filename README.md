@@ -1,1 +1,1 @@
-# pokeposte
+# Python Flask project
