@@ -24,13 +24,18 @@ async function myFunction() {
       var auth = document.createElement("DIV");
       var url = "https://play.pokemonshowdown.com/sprites/gen5/"
       var indice = arrCSV[i].split(",");
-      var team = indice[3];
+      var team = indice[7]
+      var team = team.replace("Urshifu-Rapid-Strike","urshifu-rapidstrike");
+      var team = team.replace("Mega-X","megax");
+      var team = team.replace("Mega-Y","megay");
+      var team = team.replace("Ho-Oh","hooh");
+      var tags = indice[8] + team;
       var poke = team.split("|");
-      var title = "[" + indice[2].toUpperCase() + "]" + indice[0] + " by " + indice[1];
+      var title = "[" + indice[1].toUpperCase() + "] " + indice[5] + " by " + indice[4];
       var text = document.createTextNode("");
-      var date = document.createTextNode("Ajoutée le " + indice[11]);
+      var date = document.createTextNode("Ajoutée le " + indice[2] + " par " + indice[3]);
       var saut = document.createElement("BR");
-      li.setAttribute("tags", team);
+      li.setAttribute("tags", tags);
       ul.appendChild(li);
       li.appendChild(saut);
       li.appendChild(x);
@@ -40,7 +45,7 @@ async function myFunction() {
       x.appendChild(y1);
       z.style.background = "rgba(102 , 136 , 170 , 0.40)"
       a.setAttribute("id", "a" + [i])
-      a.setAttribute("href", indice[9]);
+      a.setAttribute("href", indice[0]);
       a.setAttribute("target", "_blank");
       a.setAttribute("rel", "noopener");
       //go mettre des <img> plutot!

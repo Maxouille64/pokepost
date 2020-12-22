@@ -1,13 +1,10 @@
 @import url('https://kodhus.com/kodhus-ui/kodhus-0.1.0.min.css');
+
 body {
   background: #eee;
   font-family: sans-serif;
   margin: 2em 1em;
   line-height: 1.5em;
-}
-
-ul {
-list-style-image: url(https://play.pokemonshowdown.com/sprites/itemicons/love-ball.png)
 }
 
 table {
@@ -31,7 +28,10 @@ td {
   width: 40%;
   margin: 30px auto;
 }
+
 .tag-container {
+  position: relative;
+  left: 175px;
   border: 2px solid #ccc;
   border-radius: 3px;
   background: #fff;
@@ -40,8 +40,9 @@ td {
   align-content: flex-start;
   padding: 6px;
   overflow-x: scroll;
-  width: 70%;
+  width: 60%;
 }
+
 .tag-container .tag {
   height: 30px;
   margin: 5px;
@@ -55,10 +56,12 @@ td {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px #fff;
   cursor: default;
 }
+
 .tag i {
   font-size: 16px;
   color: #666;
   margin-left: 5px;
+  
 }
 .tag-container input {
   padding: 5px;
