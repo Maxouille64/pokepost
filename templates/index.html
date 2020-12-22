@@ -9,7 +9,7 @@
     <title> {{title}}</title>
     
        <!-- import the webpage's stylesheet -->
-    <link rel="shortcut icon" href="https://play.pokemonshowdown.com/favicon.ico">
+    <link rel="shortcut icon" href="https://www.pokepedia.fr/images/d/dd/Lettre_Avion.png">
     <link rel="stylesheet" href="https://play.pokemonshowdown.com/style/sim-types.css">
     <link rel="stylesheet" href="https://play.pokemonshowdown.com/style/battle.css">
     <link rel="stylesheet" href="https://play.pokemonshowdown.com/style/utilichart.css">
@@ -18,44 +18,91 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
     <link href="static/main.css" rel="stylesheet" type="text/css">
     <style>
-    .dark-mode {
-      background: #111;
-      color: #eee;
-    }
-    .lunaball {
-      list-style-image: url(https://play.pokemonshowdown.com/sprites/itemicons/moon-ball.png)
-    }
+      .dark-mode {
+        background: #111;
+        color: #eee;
+      }
+      .dark-mode a {
+        color: #111;
+      }
+      .dark-mode button {
+        background-color: #111;
+        color: #111;
+      }
+      .light-mode {
+        background-color: #eee;
+        color: #111;
+      }
+      .light-mode a {
+        color: #111;
+      }
+      .light-mode button {
+        background-color: #eee;
+        color: #111;
+      }
+      .loveball {
+        list-style-image: url(https://play.pokemonshowdown.com/sprites/itemicons/love-ball.png)
+      }
+      .lunaball {
+        list-style-image: url(https://play.pokemonshowdown.com/sprites/itemicons/moon-ball.png)
+      }
+      
     </style>
   </head>
   <body>
-  <script>
-  function nuit() {
-     var element = document.body;
-     var point = document.getElementById("myMenu");
-     element.classList.toggle("dark-mode");
-     point.classList.toggle("lunaball");
-  }
-  </script>
-  <button onclick="nuit()" class="button" id="dark">Toggle Dark Mode</button>
-  <p style="text-align: center ; color: #41b9e1"><i>Bienvenue les Poképotes</i><font style="color: #e1b941"><i>!</i></font>
-  <br><a href="https://pastebin.com/CEC0QjBN" target="_blank" rel="noopener"># list</a>&nbsp;*&nbsp;
-  <a href="https://pastebin.com/TEdFGM8i" target="_blank" rel="noopener">Crédits</a>&nbsp;*&nbsp;
-  <a href="result" rel="noopener">CSV</a>&nbsp;*&nbsp;
-  <a href="index1" rel="noopener">Upload team!</a></p>
-  <div class="container">
-  Press enter after you typed.
-  <div class="tag-container">
-  <input  />  
-  </div>
+    <button onclick="nuit()" class="button" id="dark">Toggle Dark Mode</button>
+    <button onclick="getCookie()" class="button" id="login">Login</button>
+    <p style="text-align: center ; color: #41b9e1"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bienvenue les Poképotes</i><font style="color: #e1b941"><i>!</i></font>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://pastebin.com/CEC0QjBN" target="_blank" rel="noopener"># list</a>&nbsp;*&nbsp;
+    <a href="https://pastebin.com/TEdFGM8i" target="_blank" rel="noopener">Crédits</a>&nbsp;*&nbsp;
+    <a href="result" rel="noopener">CSV</a>&nbsp;*&nbsp;
+    <a href="index1" rel="noopener">Upload team!</a></p>
+    <div class="container">
+    <iframe id="loginFrame" src="http://pokemonshowdown.com/servers/smogtours" style="display: none;">en effet je ne suis pas null</iframe>
+    Press enter after you typed.
+    <div class="tag-container">
+    <input  />  
+    </div>
+    <p id="demo"></p>
 
-  <p id="demo"></p>
-
-  <ul id="myMenu">
-  </ul>
-  </div>
+    <ul id="myMenu" style="loveball">
+    </ul>
+    </div>
     
-<script src="static/script.js"></script>    
-<script src="static/main.js"></script>
+    <script type="text/javascript">
+      function nuit() {
+        var body = document.body;
+        var currentClass = body.className
+        var newClass = body.className == 'dark-mode' ? 'light-mode' : 'dark-mode'
+        body.className = newClass
 
-</body>
+        document.cookie = 'theme=' + (newClass == 'light-mode' ? 'light' : 'dark') + "; expires=Fri, 31 Dec 9999 23:59:59 GMT;"
+        console.log('Cookies are now: ' + document.cookie)
+      }
+      
+      function isDarkThemeSelected() {
+        return document.cookie.match(/theme=dark/i) != null
+      }
+      
+      function setThemeFromCookie() {
+        var body = document.body;
+        var point = document.getElementById("myMenu");
+        body.className = isDarkThemeSelected() ? 'dark-mode' : 'light-mode';
+        point.style = isDarkThemeSelected() ? 'list-style-image: url(https://play.pokemonshowdown.com/sprites/itemicons/moon-ball.png)' : 'list-style-image: url(https://play.pokemonshowdown.com/sprites/itemicons/love-ball.png)';
+      }
+      
+      (function() {
+        setThemeFromCookie()
+      })();
+     function getCookie() {
+       var fenetre = document.getElementById("loginFrame");
+       //var cookie = fenetre.contentDocument.cookie;
+       console.log("spoiler: " + fenetre.innerHTML)
+       //console.log("COOKIE: " + cookie)
+     }
+    </script>
+    
+    <script src="static/script.js"></script>    
+    <script src="static/main.js"></script>
+  </body>
 </html>

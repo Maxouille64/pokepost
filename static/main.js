@@ -42,7 +42,7 @@ function myFunction(item) {
         //a = li[i].getElementsByTagName("a")[0];
         //txtValue = a.textContent || a.innerText;
         txtValue = li[i].getAttribute("tags");
-        console.log(txtValue)
+        //console.log(txtValue)
         if (tag != null) {
           li[i].style.display = ""; 
         }
@@ -67,7 +67,7 @@ input.addEventListener('keyup', (e) => {
     }
 });
 document.addEventListener('click', (e) => {
-  console.log(e.target.tagName);
+  console.log(tags);
   if (e.target.tagName === 'I') {
     const tagLabel = e.target.getAttribute('data-item');
     const index = tags.indexOf(tagLabel);
@@ -76,6 +76,11 @@ document.addEventListener('click', (e) => {
     tag = tagLabel;
     tags.forEach(myFunction);
   }
+  if (tags.length == 0) {
+      let tags = [""];
+      tags.forEach(myFunction);
+  }
+  console.log(tags.length)
 })
 
 input.focus();

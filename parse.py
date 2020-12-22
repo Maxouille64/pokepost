@@ -10,18 +10,30 @@ def plaintext(url):
 
 def get_title(x):
   data = json.loads(x)
-  return data["title"]
+  title = data["title"]
+  if title == "":
+    return "Sans titre"
+  else:
+    return title
     
 def get_author(y):
   data = json.loads(y)
-  return data["author"]
+  author = data["author"]
+  if author == "":
+    return "???"
+  else:
+    return author
 
 def get_notes(z):
   data = json.loads(z)
   return data["notes"]
 
-def get_paste(paste):
-  ligne = paste.split("\n")
+def get_paste(t):
+  data = json.loads(t)
+  return data["paste"]
+
+def get_pokes(p):
+  ligne = p.split("\n")
   team = []
   for l in ligne:
     l = l.replace("(M)","").replace("(F)","").replace(" ","")
@@ -33,6 +45,4 @@ def get_paste(paste):
       #print("n " + l)
       l = l.split("@")[0]
       team.append(l)
-      
-  paste = team
-  return paste
+  return team

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <center>
-     <head>
+  <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="static/style.css" />
     <title> {{title}}</title>
@@ -12,10 +12,47 @@
     </h1>
       <form action="/result" id="textform" method="post">
         <p>Pokepaste</p>
-        <input type="text" name="team" />
-
+        <fieldset>
+          <legend>Team's export*</legend>
+          <!-- GEN -->
+          <select name="gen" id="gen-select">
+          <option value="">-GEN-</option>
+          <option value="gen8|SS" >SS</option>
+          <option value="gen7|SM">SM</option>
+          <option value="gen6|ORAS">ORAS</option>
+          <option value="gen5|BW">BW</option>
+          <option value="gen4|DPP">DPP</option>
+          <option value="gen3|ADV">ADV</option>
+          <option value="gen2|GSC">GSC</option>
+          <option value="gen1|RBY">RBY</option>
+          </select>
+          <!-- TIER -->
+          <select name="tier" id="tier-select">
+          <option value="">-TIER-</option>
+          <option value="ubers">UBERS</option>
+          <option value="ou">OU</option>
+          <option value="uu">UU</option>
+          <option value="ru">RU</option>
+          <option value="nu">NU</option>
+          <option value="pu">PU</option>
+          <option value="zu">ZU</option>
+          <option value="nfe">NFE</option>
+          <option value="lc">LC</option>
+          <option value="Monotype">Monotype</option>
+          <option value="cap">CAP</option>
+          </select>
+          <!-- PASTE -->
+          <input type="text" name="team" />
+        </fieldset>
+        <br />
+        <fieldset>
+          <legend>qui es tu?</legend>
+          <div align="right"><input type="text" name="pseudo" /></div>
+        </fieldset>
         <br /><input type="submit" value="Submit" />
+        <br /><div align="left"><small>* = champ obligatoire</small></div>
       </form>
+    
       <table>
         <thead>
           <tr>
@@ -31,7 +68,7 @@
             <td>{{ art.Title }}</td>
             <td>{{ art.Author }}</td>
             <td>{{ art.Notes }}</td>
-            <td>{{ art.Paste }}</td>
+            <form action="/raw/?paste={{ art.Paste }}" method="post"><td><button name="showpaste" type="submit">export</button></td></form>
           </tr>
           {% endfor %}
         </tbody>
