@@ -50,6 +50,7 @@
           <legend>logged as</legend>
           <div align="right"><input type="text" disabled="disabled" name="pseudo" value="{{username}}" /></div>
         </fieldset>
+        <label class="checkbox" style="font-size: 15px" ><input type="checkbox" name="private" checked=""> <abbr title="100% SECURISEE">Publish inprivate</abbr></label>
         <br /><input type="submit" value="Submit" />
         <br /><div align="left"><small>* = champ obligatoire</small></div>
       </form>
@@ -69,7 +70,7 @@
             <td>{{ art.Title }}</td>
             <td>{{ art.Author }}</td>
             <td>{{ art.Notes }}</td>
-            <form action="/raw/?paste={{ art.Paste }}" method="post"><td><button name="showpaste" type="submit">export</button></td></form>
+          <form action="/raw/?paste={{ art.Paste }}" method="post"><td><button name="showpaste" type="submit">export</button></td></form>
           </tr>
           {% endfor %}
         </tbody>

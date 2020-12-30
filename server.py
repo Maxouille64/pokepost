@@ -13,7 +13,7 @@ log = logging.getLogger(__name__)
 
 @app.route("/")
 def test():
-  return render_template("index.html", title="Pokepost!")
+  return render_template("index.html", title="Pokepost v2")
 
 @app.route("/data")
 def data():
@@ -31,7 +31,7 @@ def dn():
 def hello():
   cookie = request.cookies.get('username')
   if cookie == None:
-    cookie = "Random strat"
+    cookie = "guest"
   else:
     pass
   #open and read data
@@ -43,12 +43,12 @@ def hello():
     art_data = []
     for row in data:
       #assigning data to the list to later be printed on the html
-      if not first_line:
+      if not first_line and row[8] != "[u'on']":
         art_data.append({
           "Title": row[5],
           "Author": row[4],
           "Notes": row[6],
-          "Paste": row[9]
+          "Paste": row[10]
         })
       #After the first iteration first_line is set to false  
       else:
@@ -66,13 +66,19 @@ def raw():
 @app.route('/result', methods=["POST", "GET"])
 def result():
   if request.method == 'POST':
+    isprivate = request.form.getlist('private')
+    print("ISPRIVATE?", isprivate)
     #Gather data from form
     date = datetime.datetime.now()
     userdata = dict(request.form)
     tags = ''
     
     url = userdata["team"][0]
-    pseudo = userdata["pseudo"][0].replace(",","/")
+    pseudo = request.cookies.get('username')
+    if pseudo == None:
+      pseudo = "Random strat"
+    else:
+      pseudo = pseudo.replace(",","/")
     if ("pokepast.es" in url):
       pass
     elif ("pastebin.com" in url):
@@ -102,7 +108,7 @@ def result():
     paste = export_to_packed(get_paste(rawjson))
     print(paste)
     pokes = get_pokes(rawpaste)
-    print("author" + author)
+    print("author " + author)
     
     team = ''
     for poke in pokes:
@@ -117,7 +123,7 @@ def result():
     #open file and write data to it
     with open('data.csv', mode='a') as csv_file:
       data = csv.writer(csv_file, delimiter=',',quotechar='"', quoting=csv.QUOTE_MINIMAL)
-      data.writerow([url, format, date, pseudo, author, title, notes, team, tags, paste])
+      data.writerow([url, format, date, pseudo, author, title, notes, team, isprivate, tags, paste])
     return render_template("result.html", title ="Success")
   else:
     return render_template("index2.html", title="CSV")

@@ -1,1 +1,3 @@
 Flask
+Bs4
+unidecode
