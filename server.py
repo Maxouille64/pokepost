@@ -18,10 +18,6 @@ def test():
 @app.route("/data")
 def data():
   return send_file('data.csv')
-
-@app.route("/a")
-def a():
-  return render_template("a.html")
   
 @app.route("/index1")
 def hello():
