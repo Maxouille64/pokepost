@@ -18,9 +18,22 @@ def test():
 @app.route("/data")
 def data():
   return send_file('data.csv')
-  
+
+@app.route("/a")
+def a():
+  return render_template("a.html")
+
+@app.route("/dn")
+def dn():
+  return redirect("https://www.youtube.com/watch?v=2mUeKNqy490", code=302)
+
 @app.route("/index1")
 def hello():
+  cookie = request.cookies.get('username')
+  if cookie == None:
+    cookie = "Random strat"
+  else:
+    pass
   #open and read data
   with open('data.csv') as csv_file:
     data = csv.reader(csv_file, delimiter=',')
@@ -41,7 +54,7 @@ def hello():
       else:
         first_line = False
   #art = art_data for simplicity in html  
-  return render_template("index1.html", art = art_data, title = "Upload team")
+  return render_template("index1.html", art = art_data, title = "Upload team", username = cookie)
 
 @app.route("/raw/", methods=['POST'])
 def raw():

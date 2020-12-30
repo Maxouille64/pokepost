@@ -1,0 +1,157 @@
+lines (102 sloc) 3.24 KB
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+  <link rel="shortcut icon" href="//play.pokemonshowdown.com/favicon.ico" id="dynamic-favicon" />
+  <link rel="icon" sizes="128x128" href="//play.pokemonshowdown.com/favicon-128.png" />
+  <link rel="stylesheet" href="//play.pokemonshowdown.com/style/client.css?2336c94b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <style>
+    body {
+      font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    }
+    #root {
+      margin: 5em auto;
+      text-align: center;
+    }
+    form > * {
+      margin: 0.3em;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <form class="ps-popup" id="login">
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Username" name="username" required="required" /><br />
+
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Password" name="password" /><br />
+
+      <button type="submit">Login</button>
+    </form>
+  </div>
+  <script src="https://unpkg.com/@pkmn/login/build/production.min.js"></script>
+  <script src="https://unpkg.com/@pkmn/protocol/build/production.min.js"></script>
+  <script>
+    const server = 'sim.smogon.com';
+    const serverport = 8000;
+    // XXX: Required to bypass CORS for this example, be very careful as this means you are sending
+    // your password to a third-party (cor-anywhere) where it could be logged etc.
+    const BYPASS_CORS = 'https://cors-anywhere.herokuapp.com/';
+    console.log(server + ":" + serverport)
+
+    var challstr = '';
+
+    class Connection {
+      open(fn) {
+        this.ws = new WebSocket(`ws://${server}:${serverport}/showdown/websocket`);
+        this.ws.onmessage = ({data}) => {
+          fn(data);
+        };
+        this.ws.onopen = () => {
+          console.log(`Connected to ${this.ws.url}`);
+        };
+        this.ws.onclose = e => {
+          const clean = e.wasClean ? ' cleanly ' : ' ';
+          const reason = e.reason ? `: ${e.reason}` : '';
+          console.log(`Disconnected${clean}from ${this.ws.url} with ${e.code}${reason}`);
+        };
+        this.ws.onerror = e => {
+          const msg = e.message;
+          if (msg === 'TIMEOUT') return;
+          console.error(`Connection error${e.message ? `: ${e.message}` : ''}`);
+        };
+      }
+
+      close() {
+        this.ws.close();
+      }
+
+      send(message) {
+        this.ws.send(message);
+      }
+    }
+
+    const form = document.getElementById('login');
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const username = form.elements[0].value;
+      const password = form.elements[1].value || undefined;
+      const action = LoginTools.login({username, password, challstr});
+      //console.log("|ACTION|" + LoginTools + "." + action +"|");
+      const response = await (await fetch(BYPASS_CORS + action.url, {
+        method: action.method,
+        headers: action.headers,
+        body: action.data,
+      })).text();
+      //console.log("|RESPONSE|" + response + "|");
+      var rep = response.substring(1);
+      console.log("REP: " + rep);
+      var loggedin = true;
+      var registered = true;
+      try {
+          var json = JSON.parse(rep);
+      } catch(e) {
+        
+          if (rep == null) {
+            var loggedin = false;
+            var registered = true;
+            alert("The name (" + username + ") you chose is registered."); 
+          }
+          else if (rep == ";This server is requesting an invalid login key. This probably means that either you are not connected to a server, or the server is set up incorrectly.") {
+            var loggedin = true;
+            var registered = false;
+          } else {
+              var loggedin = false;
+              var registered = true;
+              alert(username + " est else");
+          }
+      };
+      if (registered == true) {
+        var loggedin = json.curuser.loggedin;
+      };
+      if (loggedin == true) {
+        document.cookie = "username=" + username + ";" + ";path";
+        //document.write(response)
+        window.opener.maxFresh()
+        window.close();
+      } else {
+          alert(username + "final else");
+      }
+      
+      //if (rep == ";This server is requesting an invalid login key. This probably means that either you are not connected to a server, or the server is set up incorrectly.") {
+        //document.write("logged as unregistered " + username)
+      //}
+      //const cmd = action.onResponse(response);
+      //console.log("|CMD|" + cmd + "|");
+      //if (cmd) connection.send(cmd);
+    });
+
+    const connection = new Connection();
+    connection.open(async data => {
+      for (const {args} of Protocol.parse(data)) {
+        switch (args[0]) {
+          case 'challstr': {
+            challstr = args[1];
+            break;
+          }
+          case 'updateuser': {
+            const username = args[1].trim();
+            const message = `Logged in as '${username}'`;
+            console.log(message);
+            if (!username.startsWith('Guest')) {
+              document.getElementById('root').innerHTML = message;
+            }
+            break;
+          }
+        }
+      }
+  });
+  </script>
+  <script src="https://unpkg.com/@pkmn/login/build/production.min.js"></script>
+</body>
+</html>

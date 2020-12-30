@@ -50,15 +50,15 @@
     </style>
   </head>
   <body>
-    <button onclick="nuit()" class="button" id="dark">Toggle Dark Mode</button>
-    <button onclick="getCookie()" class="button" id="login">Login</button>
+    <button onclick="nuit()" class="button" id="dark">Toggle Dark Mode</button> *
+    <span onclick="popup()" class="username" id="login" style="color:#2f87a1;">login</span> * <span onclick="logout()" class="username" id="logout" style="color:#2f87a1;">logout</span>
     <p style="text-align: center ; color: #41b9e1"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bienvenue les Poképotes</i><font style="color: #e1b941"><i>!</i></font>
     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://pastebin.com/CEC0QjBN" target="_blank" rel="noopener"># list</a>&nbsp;*&nbsp;
     <a href="https://pastebin.com/TEdFGM8i" target="_blank" rel="noopener">Crédits</a>&nbsp;*&nbsp;
     <a href="result" rel="noopener">CSV</a>&nbsp;*&nbsp;
     <a href="index1" rel="noopener">Upload team!</a></p>
     <div class="container">
-    <iframe id="loginFrame" src="http://pokemonshowdown.com/servers/smogtours" style="display: none;">en effet je ne suis pas null</iframe>
+    <!-- <iframe id="loginFrame" src="http://pokemonshowdown.com/servers/smogtours" style="display: none;">en effet je ne suis pas null</iframe> -->
     Press enter after you typed.
     <div class="tag-container">
     <input  />  
@@ -91,17 +91,44 @@
         point.style = isDarkThemeSelected() ? 'list-style-image: url(https://play.pokemonshowdown.com/sprites/itemicons/moon-ball.png)' : 'list-style-image: url(https://play.pokemonshowdown.com/sprites/itemicons/love-ball.png)';
       }
       
+      function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+      
       (function() {
         setThemeFromCookie()
       })();
-     function getCookie() {
-       var fenetre = document.getElementById("loginFrame");
-       //var cookie = fenetre.contentDocument.cookie;
-       console.log("spoiler: " + fenetre.innerHTML)
-       //console.log("COOKIE: " + cookie)
-     }
+      function logout() {
+        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        maxFresh();
+      }
+      function popup()
+        {
+          window.open('a','nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=300, height=200');
+        }
+      function maxFresh() {
+        document.location.reload();
+      }
+      var username = getCookie("username");
+      var login = document.getElementById("login");
+      if (username != "") {
+        login.innerHTML = "logged as " + username + " <i class='fa fa-user' style='color:#779EC5'></i>";
+        console.log("LOGGED AS -> " + username)
+      } else {
+        login.innerHTML = "LOGIN";
+      }
     </script>
-    
     <script src="static/script.js"></script>    
     <script src="static/main.js"></script>
   </body>
