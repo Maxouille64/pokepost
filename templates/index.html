@@ -68,7 +68,6 @@
     <ul id="myMenu" style="loveball">
     </ul>
     </div>
-    
     <script type="text/javascript">
       function nuit() {
         var body = document.body;
@@ -91,21 +90,6 @@
         point.style = isDarkThemeSelected() ? 'list-style-image: url(https://play.pokemonshowdown.com/sprites/itemicons/moon-ball.png)' : 'list-style-image: url(https://play.pokemonshowdown.com/sprites/itemicons/love-ball.png)';
       }
       
-      function getCookie(cname) {
-        var name = cname + "=";
-        var ca = document.cookie.split(';');
-        for(var i = 0; i < ca.length; i++) {
-          var c = ca[i];
-          while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-          }
-          if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-          }
-        }
-        return "";
-      }
-      
       (function() {
         setThemeFromCookie()
       })();
@@ -120,6 +104,20 @@
       function maxFresh() {
         document.location.reload();
       }
+      function getCookie(cname) {
+      var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
       var username = getCookie("username");
       var login = document.getElementById("login");
       if (username != "") {
@@ -129,7 +127,6 @@
         login.innerHTML = "LOGIN";
       }
     </script>
-    <script src="static/script.js"></script>    
     <script src="static/main.js"></script>
   </body>
 </html>
