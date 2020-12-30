@@ -10,6 +10,7 @@
     <h1>
       UPLOAD
     </h1>
+      <span onclick="popup()" class="username" id="login1" style="color:#2f87a1;">login wish PS!</span> * <span onclick="logout()" class="username" id="logout1" style="color:#2f87a1;">logout</span>
       <form action="/result" id="textform" method="post">
         <p>Pokepaste</p>
         <fieldset>
@@ -38,7 +39,7 @@
           <option value="zu">ZU</option>
           <option value="nfe">NFE</option>
           <option value="lc">LC</option>
-          <option value="Monotype">Monotype</option>
+          <option value="Monotype">Mono</option>
           <option value="cap">CAP</option>
           </select>
           <!-- PASTE -->
@@ -46,8 +47,8 @@
         </fieldset>
         <br />
         <fieldset>
-          <legend>qui es tu?</legend>
-          <div align="right"><input type="text" name="pseudo" /></div>
+          <legend>logged as</legend>
+          <div align="right"><input type="text" disabled="disabled" name="pseudo" value="{{username}}" /></div>
         </fieldset>
         <br /><input type="submit" value="Submit" />
         <br /><div align="left"><small>* = champ obligatoire</small></div>
@@ -73,6 +74,21 @@
           {% endfor %}
         </tbody>
       </table>
+    <script>
+      function logout() 
+        {
+        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        maxFresh();
+        }  
+      function popup()
+        {
+          window.open('a','nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=300, height=200');
+        }
+      function maxFresh() 
+        {
+        document.location.reload();
+        }
+    </script>
   </body>
   </center>
 </html>
