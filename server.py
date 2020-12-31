@@ -23,10 +23,6 @@ def data():
 def a():
   return render_template("a.html")
 
-@app.route("/dn")
-def dn():
-  return redirect("https://www.youtube.com/watch?v=2mUeKNqy490", code=302)
-
 @app.route("/index1")
 def hello():
   cookie = request.cookies.get('username')
