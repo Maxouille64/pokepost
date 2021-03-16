@@ -24,10 +24,6 @@ def data():
 def a():
   return render_template("a.html")
 
-@app.route("/test")
-def test():
-  return render_template("test.html")
-
 @app.route("/upload")
 def hello():
   cookie = request.cookies.get('username')
