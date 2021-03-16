@@ -23,7 +23,7 @@ def data():
 def a():
   return render_template("a.html")
 
-@app.route("/index1")
+@app.route("/upload")
 def hello():
   cookie = request.cookies.get('username')
   if cookie == None:
