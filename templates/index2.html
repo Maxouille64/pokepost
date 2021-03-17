@@ -18,40 +18,38 @@
     <body>
       <a href="https://github.com/Maxouille64/pokepost" target="_blank" rel="noopener">Github</a> * <a href="https://discord.gg/XbuDP2T" target="_blank" rel="noopener">Discord</a> * <a href="https://lollyclub.glitch.me/" target="_blank" rel="noopener">Showdown! Server</a> * <a href="/" >Back to home</a>
         <br />
-        <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-        <script type="text/javascript" src="static/d3.min.js?v=3.2.8"></script>
-
-        <script type="text/javascript" charset="utf-8">
-          function getCookie(cname) {
-            var name = cname + "=";
-              var ca = document.cookie.split(';');
-              for(var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') {
-                  c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                  return c.substring(name.length, c.length);
-                }
-              }
-              return "";
-          }
-          if (getCookie("username") == "Maxouille") {
-            d3.text("data", function(data) {
-                var parsedCSV = d3.csv.parseRows(data);
-
-                var container = d3.select("body")
-                    .append("table")
-
-                    .selectAll("tr")
-                        .data(parsedCSV).enter()
-                        .append("tr")
-
-                    .selectAll("td")
-                        .data(function(d) { return d; }).enter()
-                        .append("td")
-                        .text(function(d) { return d; });
-            })};
-        </script>
+          <table>
+          <thead>
+            <tr>
+              <th>0)url</th>
+              <th>1)format</th>
+              <th>2)date</th>
+              <th>3)Author</th>
+              <th>4)Title</th>
+              <th>5)Notes</th>
+              <th>6)team</th>
+              <th>7)isprivate</th>
+              <th>8)tags</th>
+              <th>9)Paste</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for art in art %}
+            <tr>
+              <td>{{ art.Url }}</td>
+              <td>{{ art.Format }}</td>
+              <td>{{ art.Date }}</td>
+              <td>{{ art.Author }}</td>
+              <td>{{ art.Title }}</td>
+              <td>{{ art.Note }}</td>
+              <td>{{ art.Team }}</td>
+              <td>{{ art.isPrivate }}</td>
+              <td>{{ art.Tags }}</td>
+              <td>{{ art.Paste }}</td>
+            <form action="/raw/?paste={{ art.Paste }}" method="post"><td><button name="showpaste" type="submit">export</button></td></form>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
     </body>
 </html>
