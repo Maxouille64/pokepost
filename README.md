@@ -6,4 +6,7 @@ Credits :
 - felixphew for pokepast.es
 - Zarel for hosting the sql user base, the (compressed) team format and some css too
 
-Setup : Create a data.csv and a log.txt at the root of the Python 2 project 
+Setup : 
+- Python 2.7
+- pip install -r requirements.txt
+- Create a data.csv and a log.txt at the root of the project 
