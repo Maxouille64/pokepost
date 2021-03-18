@@ -79,13 +79,13 @@ def result():
       author = get_author(rawjson).replace(",","/comma/")
       title = get_title(rawjson).replace(",","/comma/") + " by " + author
       notes = get_notes(rawjson).replace(",","/comma/")
-      team_json = get_paste(rawjson)
-      print("|" + team_json.strip() + "|")
-      pack = export_to_packed(team_json.strip())
+      print("|" + raw + "|")
+      pack = export_to_packed(raw.strip())
       print("PACKING...")
       print(pack)
       pokes = get_pokes(rawpaste)
       print("author " + author)
+      return rawpaste.strip()
       pass
     elif ("pastebin.com" in url):
       return "only work with pokepast.es for now :("
