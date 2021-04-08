@@ -154,7 +154,7 @@ lines (102 sloc) 3.24 KB
         var loggedin = json.curuser.loggedin;
       };
       if (loggedin == true) {
-        document.cookie = "username=" + username + ";" + ";path";
+        document.cookie = "username=" + username + "; expires=Fri, 31 Dec 9999 23:59:59 GMT" + ";path";
         //document.write(response)
         window.opener.maxFresh();
         window.close();
