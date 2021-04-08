@@ -123,7 +123,7 @@ def single_pokemon_export_to_dict(pkmn_export_string):
         pkmn_dict["name"] = normalize_name(name.strip())
     if '@' in pkmn_info[0]:
         pkmn_dict["item"] = normalize_name(pkmn_info[0].split('@')[1])
-    for line in pkmn_info[1:]:
+    for line in map(str.strip, pkmn_info[1:]):
         if line.startswith('Ability: '):
             pkmn_dict["ability"] = normalize_name(line.split('Ability: ')[-1])
         elif line.startswith('Level: '):
@@ -144,8 +144,9 @@ def single_pokemon_export_to_dict(pkmn_export_string):
 
 def export_to_packed(export_string):
     team_dict = list()
-    team_members = export_string.split('\n\n')
+    team_members = export_string.split('\n\r')
     for pkmn in filter(None, team_members):
+        print("[" + pkmn + "]")
         pkmn_dict = single_pokemon_export_to_dict(pkmn)
         team_dict.append(pkmn_dict)
 

@@ -69,36 +69,21 @@ def result():
     if ("pokepast.es/" in url):
       json = urllib.urlopen(url + "/json").read()
       raw = urllib.urlopen(url + "/raw").read()
-      
       rawjson = plaintext(json)
-
       rawpaste = plaintext(raw)
-      #print("POKEPASTE: " + rawpaste)
-
-      print("GET PASTE...")
       author = get_author(rawjson).replace(",","/comma/")
       title = get_title(rawjson).replace(",","/comma/") + " by " + author
       notes = get_notes(rawjson).replace(",","/comma/")
-      print("|" + raw + "|")
       pack = export_to_packed(raw.strip())
       print("PACKING...")
       print(pack)
       pokes = get_pokes(rawpaste)
       print("author " + author)
-      return rawpaste.strip()
       pass
     elif ("pastebin.com" in url):
       return "only work with pokepast.es for now :("
     else:
-      erreur = (str(date) + " -> " + url + "|" + pseudo)
-      cahier = open("log.txt" ,"a")
-      cahier.write("\n" + erreur)
-      cahier.close
-      
-      print("GET PASTE...")
-      rawpaste = url.strip()
-      print(rawpaste)
-      
+      rawpaste = str(url.strip())
       notes = "[u'raw']"
       title = pseudo + "'s super cool team"
       myobj = [('paste',url),('author',pseudo),('title',title)]
@@ -106,18 +91,19 @@ def result():
       url = url.url
       if url == "https://pokepast.es/create":
         return "No (or Invalid) Paste"
-      #return "only pokepast format is supported ex: https://pokepast.es/1 (errors are reported anyway)"
       print("PACKING...")
       pack = export_to_packed(rawpaste)
       print(pack)
       pokes = get_pokes(rawpaste)
-    
+      
     if userdata["title"][0] != "":
-      print("/!\ ATTENTION /!\ ")
       title = userdata["title"][0]
-    gen = userdata["gen"][0].split("|")
+    title = plaintext(title)
+    gen = (userdata["gen"][0].replace("u","")).split("|")
+    print(gen)
     tier = userdata["tier"][0]
     format = gen[0] + tier
+    print(format)
     
     url = url.split("pokepast.es/")[1]
     
