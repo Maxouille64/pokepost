@@ -15,7 +15,7 @@ log = logging.getLogger(__name__)
 def index():
   return render_template("index.html", title="Pokepost v2")
   #return render_template("maintenance.html", title="Pokepost.tk/")
-
+  
 @app.route("/data")
 def data():
   return send_file('data.csv')
@@ -32,10 +32,9 @@ def upload():
   return render_template("upload.html", title = "Upload team", username = cookie)
 
 @app.route("/raw/", methods=['POST'])
-def raw():
+def json():
     #Moving forward code
     pack = str(request.args.get('paste'))
-    print(pack)
     team_json = packed_to_json(pack)
     return jsonify(team_json)
   
@@ -58,7 +57,7 @@ def result():
     tags = ''
     isprivate = "[u'off']"
     
-    url = userdata["paste"][0]
+    url = userdata["paste"]
     pseudo = request.cookies.get('username')
     if pseudo == None:
       pseudo = "Random strat"
@@ -67,22 +66,21 @@ def result():
       pseudo = pseudo.replace(",","/")
       
     if ("pokepast.es/" in url):
-      json = urllib.urlopen(url + "/json").read()
-      raw = urllib.urlopen(url + "/raw").read()
+      json = urllib.request.urlopen(url + "/json").read()
+      rawpaste = urllib.request.urlopen(url + "/raw").read()
+      rawpaste = plaintext(rawpaste)
+      print("RAWWWWWWWWW", flush=True)
+      print(rawpaste, flush=True)
       rawjson = plaintext(json)
-      rawpaste = plaintext(raw)
       author = get_author(rawjson).replace(",","/comma/")
       title = get_title(rawjson).replace(",","/comma/") + " by " + author
       notes = get_notes(rawjson).replace(",","/comma/")
-      pack = export_to_packed(raw.strip())
-      print("PACKING...")
-      print(pack)
-      pokes = get_pokes(rawpaste)
-      print("author " + author)
+      print("author " + author, flush=True)
       pass
     elif ("pastebin.com" in url):
       return "only work with pokepast.es for now :("
     else:
+      print("ELSE", flush=True)
       rawpaste = str(url.strip())
       notes = "[u'raw']"
       title = pseudo + "'s super cool team"
@@ -90,22 +88,23 @@ def result():
       url = requests.post("https://pokepast.es/create", data = myobj)
       url = url.url
       if url == "https://pokepast.es/create":
-        return "No (or Invalid) Paste"
-      print("PACKING...")
-      pack = export_to_packed(rawpaste)
-      print(pack)
-      pokes = get_pokes(rawpaste)
+        return "No (or Invalid) Paste"    
+    if userdata["title"] != "":
+      title = userdata["title"]
+      print("title", flush=True)
+      print(title, flush=True)
       
-    if userdata["title"][0] != "":
-      title = userdata["title"][0]
+    url = url.split("pokepast.es/")[1]      
     title = plaintext(title)
-    gen = (userdata["gen"][0].replace("u","")).split("|")
-    print(gen)
-    tier = userdata["tier"][0]
+    gen = (userdata["gen"].replace("u","")).split("|")
+    print("GEN", flush=True)
+    tier = userdata["tier"]
     format = gen[0] + tier
-    print(format)
     
-    url = url.split("pokepast.es/")[1]
+    pack = export_to_packed(rawpaste)
+    print("PACK", flush=True)
+    print(pack, flush=True)
+    pokes = get_pokes(rawpaste)
     
     team = ''
     for poke in pokes:
@@ -115,7 +114,7 @@ def result():
       n = n - 1
       team = team + "0|"
       
-    tags = "||" + gen[0] + "|" + gen[1] + "|" + tier + "|" + title + "|" + pseudo + "|"
+    tags = "||" + gen[0] + "|" + gen[0] + "|" + tier + "|" + title + "|" + pseudo + "|"
 
     #open file and write data to it
     with open('data.csv', mode='a') as csv_file:
@@ -147,7 +146,7 @@ def result():
                 "Tags": row[8],
                 "Paste": row[9]
               })
-              #print(art_data)
+              #print(art_data, flush=True)
             #After the first iteration first_line is set to false  
             else:
               first_line = False

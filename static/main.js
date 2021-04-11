@@ -133,6 +133,7 @@ async function Display() {
         var s5 = document.createElement("IMG");
         var auth = document.createElement("DIV");
         var url = "https://play.pokemonshowdown.com/sprites/gen5/"
+        var tier = indice[1]
         var team = indice[6]
         var team = team.replace("Urshifu-Rapid-Strike","urshifu-rapidstrike");
         var team = team.replace("Mega-X","megax");
@@ -140,7 +141,7 @@ async function Display() {
         var team = team.replace("Ho-Oh","hooh");
         var tags = indice[8] + team;
         var poke = team.split("|");
-        var title = "[" + indice[1].toUpperCase() + "] " + indice[4];
+        var title = "[" + tier.toUpperCase() + "] " + indice[4];
         var text = document.createTextNode("");
         var date = document.createTextNode("Added the " + indice[2] + " by " + username);
         var saut = document.createElement("BR");
@@ -153,10 +154,7 @@ async function Display() {
         x0.appendChild(y0);
         x0.appendChild(y1);
         z0.style.background = "rgba(102 , 136 , 170 , 0.40)";
-        a.setAttribute("id", "a" + [i])
-        a.setAttribute("href", "https://pokepast.es/" + indice[0]);
-        a.setAttribute("target", "_blank");
-        a.setAttribute("rel", "noopener");
+        a.setAttribute("onclick", 'showpaste('+indice.slice(9)+','+tier[3]+')');
         //go mettre des <img> plutot!
         Object.assign(s0, {
           style: 'margin-left: 2px',
