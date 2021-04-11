@@ -1,0 +1,32 @@
+dependencies:
+  '@pkmn/dex': 0.3.22
+  '@pkmn/sets': 1.0.1
+packages:
+  /@pkmn/dex-types/0.3.22:
+    dependencies:
+      '@pkmn/types': 1.0.1
+    dev: false
+    resolution:
+      integrity: sha512-bhoFghhpKqluA88vRKhoi1yUI9i/R2FqGjqkpJoQtOq5IPEVl7gNgvMujUb6tOa1Mfkwx8dBlB9mtWn4J4a6ow==
+  /@pkmn/dex/0.3.22:
+    dependencies:
+      '@pkmn/dex-types': 0.3.22
+    dev: false
+    resolution:
+      integrity: sha512-Eq24G0RZQKTZujqsaR5WnIFBq0ClxSUj7JJGb2PH+AhKGa406k/M4I0iNtekRdp+mWC3QQTlAzTwtDgsUqwCIA==
+  /@pkmn/sets/1.0.1:
+    dependencies:
+      '@pkmn/types': 1.0.1
+    dev: false
+    resolution:
+      integrity: sha512-NhsEhqWw7aHMSnpS2OB3QduuscF00BU/fSePicHwleqM9dYsOWD3bYlsVDLIBioeohw/8uurqzDjClnYlTKVOA==
+  /@pkmn/types/1.0.1:
+    dev: false
+    resolution:
+      integrity: sha512-JFF/CFj+022fennraZAtcDYXlDUbh59Bxj6IQTpsMJLbSuQyMJdiSr4/Eu2ITe/0HkExPeZyjlZ87yEVjDdRrg==
+registry: 'https://registry.npmjs.org/'
+shrinkwrapMinorVersion: 9
+shrinkwrapVersion: 3
+specifiers:
+  '@pkmn/dex': ^0.3.22
+  '@pkmn/sets': ^1.0.0
