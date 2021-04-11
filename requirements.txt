@@ -1,4 +1,0 @@
-Flask
-Bs4
-unidecode
-requests
