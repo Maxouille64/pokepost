@@ -1,0 +1,4 @@
+flask
+Bs4
+unidecode
+requests
