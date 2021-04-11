@@ -2,22 +2,21 @@
   "//1": "describes your app and its dependencies",
   "//2": "https://docs.npmjs.com/files/package.json",
   "//3": "updating this file will download and update your packages",
-  "name": "pokepost",
+  "name": "zhyle",
   "version": "0.0.1",
-  "description": "team database",
+  "description": "What am I about?",
   "scripts": {
     "start": "bash installReqsAndStart.sh"
   },
-  "dependencies": {
-    "@pkmn/sets": "^1.0.0",
-    "@pkmn/dex": "^0.3.22"
-  },
+  
   "engines": {
     "node": "9.x"
   },
+  
   "repository": {
-    "url": "https://github.com/Maxouille64/pokepost"
+    "url": "https://glitch.com/edit/#!/zhyle"
   },
+  
   "license": "MIT",
   "keywords": [
     "node",
