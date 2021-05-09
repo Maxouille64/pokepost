@@ -13,7 +13,7 @@ log = logging.getLogger(__name__)
 
 @app.route("/")
 def index():
-  return render_template("index.html", title="Pokepost v2")
+  return render_template("index.html", title="Pokepost v3")
   #return render_template("maintenance.html", title="Pokepost.tk/")
   
 @app.route("/data")
@@ -69,7 +69,6 @@ def result():
       json = urllib.request.urlopen(url + "/json").read()
       rawpaste = urllib.request.urlopen(url + "/raw").read()
       rawpaste = plaintext(rawpaste)
-      print("RAWWWWWWWWW", flush=True)
       print(rawpaste, flush=True)
       rawjson = plaintext(json)
       author = get_author(rawjson).replace(",","/comma/")
@@ -156,6 +155,9 @@ def result():
 
     #art = art_data for simplicity in html  
     return render_template("index2.html", art = art_data, title = "CSV")
+@app.route("/lc")
+def lc():
+  return render_template("teamslc.html", title="gen4lc")
 
 
     

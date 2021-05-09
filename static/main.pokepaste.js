@@ -110,7 +110,7 @@ async function Display() {
     const CSV = await response.text();
     //const response1 = await fetch("dexdata.json");
     //const json = await response1.json();
-    const arrCSV = CSV.split('\n');
+    const arrCSV = CSV.split('\n').reverse();
     const ul = document.getElementById("myMenu")
     for (var i = 1, len = arrCSV.length; i < len; i++) {
       var indice = arrCSV[i].split(",");

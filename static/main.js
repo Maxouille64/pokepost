@@ -109,9 +109,9 @@ async function Display() {
     const CSV = await response.text();
     //const response1 = await fetch("dexdata.json");
     //const json = await response1.json();
-    const arrCSV = CSV.split('\n');
+    const arrCSV = CSV.split('\n').reverse();
     const ul = document.getElementById("myMenu")
-    for (var i = 1, len = arrCSV.length; i < len; i++) {
+    for (var i = 1, len = arrCSV.length; i < len-1; i++) {
       var indice = arrCSV[i].split(",");
       var isprivate = indice[7];
       var username = indice[3];

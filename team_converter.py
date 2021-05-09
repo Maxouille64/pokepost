@@ -144,7 +144,7 @@ def single_pokemon_export_to_dict(pkmn_export_string):
 
 def export_to_packed(export_string):
     team_dict = list()
-    team_members = export_string.split('\n\r')
+    team_members = export_string.split('\r\n\r\n')
     for pkmn in filter(None, team_members):
         print("[" + pkmn + "]")
         pkmn_dict = single_pokemon_export_to_dict(pkmn)
