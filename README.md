@@ -8,5 +8,5 @@ Credits :
 
 Setup : 
 - install Python 3.X as python3
-- bash installReqsAndStart.sh
 - Create a data.csv and a log.txt at the root of the project
+- bash installReqsAndStart.sh
