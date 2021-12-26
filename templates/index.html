@@ -19,7 +19,7 @@
     <link href="static/main.css" rel="stylesheet" type="text/css">
     <style>
       .dark-mode {
-        background: #111;
+        background: #23272a;
         color: #eee;
       }
       .dark-mode a {
@@ -46,7 +46,16 @@
       .lunaball {
         list-style-image: url(https://play.pokemonshowdown.com/sprites/itemicons/moon-ball.png)
       }
-      
+      .light-mode input, textarea {
+
+        background-color : #fff; 
+
+      } 
+      .dark-mode input, textarea {
+
+        background-color : #d1d1d1; 
+
+      }
     </style>
   </head>
   <body>
@@ -66,6 +75,9 @@
     <ul id="myMenu" style="loveball">
     </ul>
     </div>
+    <center>
+      <a target="_blank" href="https://fulllifegames.com/Tools/SmogonDump/" class="button">MORE TEAMS</a>
+    </center>
     <script src="https://unpkg.com/@pkmn/dex/build/production.min.js"></script>
     <script src="https://unpkg.com/@pkmn/sets/build/production.min.js"></script>
     <script type="text/javascript">
@@ -75,13 +87,13 @@
             array = pack.split("]");
             console.log("ARRAY");
             console.log(array);
-            team = '';
+            team = '';            
             for (x in array) {
-              x = PokemonSets.unpack(array[x],Dex.forGen(8))
-              x = PokemonSets.exportSet(x,Dex.forGen(8))
-              console.log(x)
-              team = team + x
-            };
+                x = PokemonSets.unpack(array[x],Dex.forGen(8))
+                x = PokemonSets.exportSet(x,Dex.forGen(8))
+                console.log(x)
+                team = team + x
+              };
             console.log("== TEAM ==")
             console.log(team);
             team = "<pre>" + team + "</pre>"

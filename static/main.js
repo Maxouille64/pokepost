@@ -116,7 +116,8 @@ async function Display() {
       var isprivate = indice[7];
       var username = indice[3];
       var cookie = getCookie("username");
-      if (isprivate != "[u'on']" ||cookie.toUpperCase() == username.toUpperCase()) {
+      //if (isprivate != "[u'on']" ||cookie.toUpperCase() == username.toUpperCase()) {
+      if (isprivate.indexOf("on") === -1 ||cookie.toUpperCase() == username.toUpperCase()) {
         var li = document.createElement("li");
         var x0 = document.createElement("TABLE");
         var y0 = document.createElement("TR");
@@ -139,6 +140,8 @@ async function Display() {
         var team = team.replace("Mega-X","megax");
         var team = team.replace("Mega-Y","megay");
         var team = team.replace("Ho-Oh","hooh");
+        var team = team.replace("Kommo-o","kommoo");
+        var team = team.replace("%","");
         var tags = indice[8] + team;
         var poke = team.split("|");
         var title = "[" + tier.toUpperCase() + "] " + indice[4];
