@@ -19,6 +19,10 @@ def index():
 @app.route("/data")
 def data():
   return send_file('data.csv')
+  
+@app.route("/download")
+def firefox():
+  return redirect("https://cdn.glitch.me/c7b08ba3-0914-48ee-91c4-a9884f3b0ce9/RTB.xpi?v=1639684912571", code=302)
 
 @app.route("/a")
 def a():
@@ -155,10 +159,6 @@ def result():
 
     #art = art_data for simplicity in html  
     return render_template("index2.html", art = art_data, title = "CSV")
-@app.route("/lc")
-def lc():
-  return render_template("teamslc.html", title="gen4lc")
-
 
     
 if __name__ == "__main__":
