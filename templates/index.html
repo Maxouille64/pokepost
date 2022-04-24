@@ -78,6 +78,13 @@
     <center>
       <a target="_blank" href="https://fulllifegames.com/Tools/SmogonDump/" class="button">MORE TEAMS</a>
     </center>
+    
+    <script>
+      if (location.protocol != 'https:') {
+       location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+      }
+    </script>
+    
     <script src="https://unpkg.com/@pkmn/dex/build/production.min.js"></script>
     <script src="https://unpkg.com/@pkmn/sets/build/production.min.js"></script>
     <script type="text/javascript">
