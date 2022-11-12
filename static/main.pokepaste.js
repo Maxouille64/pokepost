@@ -1,5 +1,3 @@
-alert("aaa")
-
 //THIS CODE SHOWS PASTES USING `https://pokepast.es/`
 const tagContainer = document.querySelector('.tag-container');
 const input = document.querySelector('.tag-container input');
