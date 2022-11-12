@@ -78,13 +78,7 @@
     <center>
       <a target="_blank" href="https://fulllifegames.com/Tools/SmogonDump/" class="button">MORE TEAMS</a>
     </center>
-    
-    <script>
-      if (location.protocol != 'https:') {
-       location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-      }
-    </script>
-    
+
     <script src="https://unpkg.com/@pkmn/dex/build/production.min.js"></script>
     <script src="https://unpkg.com/@pkmn/sets/build/production.min.js"></script>
     <script type="text/javascript">
@@ -92,6 +86,7 @@
       
       function showpaste(pack)  {
             array = pack.split("]");
+            array.filter(n => n)
             console.log("ARRAY");
             console.log(array);
             team = '';            
@@ -105,7 +100,7 @@
             console.log(team);
             team = "<pre>" + team + "</pre>"
             var tab = window.open('about:blank', '_blank');
-            tab.document.write(team); // where 'html' is a variable containing your HTML
+            tab.document.write(team); // where 'team' is a variable containing your HTML
             tab.document.close();
             return
       }

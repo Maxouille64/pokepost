@@ -83,7 +83,37 @@ document.addEventListener('click', (e) => {
       tags.forEach(myFunction);
   }
   console.log(tags.length)
-})
+});
+
+tagContainer.addEventListener('keydown', function (event) {
+    console.log(tags);
+    if (event.code == 'Delete') {
+        console.log('The physical key pressed was the DELETE key');
+    }
+    if (event.code == 'Backspace') {
+        console.log('The physical key pressed was the BACKSPACE key');
+        tags.pop();
+        addTags();
+        tags.forEach(myFunction);
+        }
+        if (tags.length == 0) {
+            let tags = [""];
+            tags.forEach(myFunction);
+        }
+        console.log(tags.length)
+  
+    if (event.key == 'Delete') {
+        console.log('The keypress meant the same as pressing DELETE');
+        // This can happen for one of two reasons:
+        // 1. The user pressed the DELETE key
+        // 2. The user pressed FN+BACKSPACE on a small Mac keyboard where
+        //    FN+BACKSPACE deletes the character in front of the text cursor,
+        //    instead of the one behind it.
+    }
+    if (event.key == 'Backspace') {
+        console.log('The keypress meant the same as pressing BACKSPACE');
+    }
+});
 
 input.focus();
 
