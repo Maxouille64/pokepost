@@ -1,3 +1,5 @@
+alert("aaa")
+
 //THIS CODE SHOWS PASTES USING `https://pokepast.es/`
 const tagContainer = document.querySelector('.tag-container');
 const input = document.querySelector('.tag-container input');
@@ -126,12 +128,15 @@ async function Display() {
         var z1 = document.createElement("TD");
         var a = document.createElement("A");
         var b = document.createElement("B");
-        var s0 = document.createElement("IMG");
-        var s1 = document.createElement("IMG");
-        var s2 = document.createElement("IMG");
-        var s3 = document.createElement("IMG");
-        var s4 = document.createElement("IMG");
-        var s5 = document.createElement("IMG");
+        var S = {
+          0: document.createElement("IMG"),
+          1: document.createElement("IMG"),
+          2: document.createElement("IMG"),
+          3: document.createElement("IMG"),
+          4: document.createElement("IMG"),
+          5: document.createElement("IMG"),
+          6: document.createElement("IMG"),
+        };
         var auth = document.createElement("DIV");
         var url = "https://play.pokemonshowdown.com/sprites/gen5/"
         var team = indice[6]
@@ -161,36 +166,18 @@ async function Display() {
         a.setAttribute("target", "_blank");
         a.setAttribute("rel", "noopener");
         //go mettre des <img> plutot!
-        Object.assign(s0, {
-          style: 'margin-left: 2px',
-          src: url + poke[0].toLowerCase() + ".png"
-        });
-        Object.assign(s1, {
-          style: 'margin-left: 2px',
-          src: url + poke[1].toLowerCase() + ".png"
-        });
-        Object.assign(s2, {
-          style: 'margin-left: 2px',
-          src: url + poke[2].toLowerCase() + ".png"
-        });
-        Object.assign(s3, {
-          style: 'margin-left: 2px',
-          src: url + poke[3].toLowerCase() + ".png"
-        });
-        Object.assign(s4, {
-          style: 'margin-left: 2px',
-          src: url + poke[4].toLowerCase() + ".png"
-        });
-        Object.assign(s5, {
-          style: 'margin-left: 2px',
-          src: url + poke[5].toLowerCase() + ".png"
-        });
-        a.appendChild(s0);
-        a.appendChild(s1);
-        a.appendChild(s2);
-        a.appendChild(s3);
-        a.appendChild(s4);
-        a.appendChild(s5);
+        let n = 0;
+        let l = poke.length;
+        console.log(l);
+        while (n < l && n < 6) {
+          console.log(S[n]);
+          Object.assign(S[n], {
+            style: 'margin-left: 2px',
+            src: url + poke[n].toLowerCase() + ".png"
+          });
+          a.appendChild(S[n]);
+          n++;
+        };
         z1.style.textAlign = "left"
         z1.appendChild(b);
         b.appendChild(document.createTextNode(title));
