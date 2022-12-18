@@ -178,18 +178,6 @@ def result():
 
     #art = art_data for simplicity in html  
     return render_template("index2.html", art = art_data, title = "CSV")
-
-@app.route('/post', methods=["POST"])
-def post():
-    print(request.method, flush=True)
-    print(request.args, flush=True)
-    requests_function = method_requests_mapping[flask.request.method]
-    request = requests_function(url, stream=True, params=flask.request.args)
-    response = flask.Response(flask.stream_with_context(request.iter_content()),
-                              content_type=request.headers['content-type'],
-                              status=request.status_code)
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    return response
     
 if __name__ == "__main__":
   app.run()
