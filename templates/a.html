@@ -138,9 +138,7 @@ lines (102 sloc) 3.24 KB
             alert("the account " + username + " is registered.")
           } else {
               var loggedin = true;
-              var registered = true;
-              var pass = password
-              var pass = (pass === undefined) ? "null" : pass;
+              var registered = false;
               /*
               alert("ERR -> " + response)
               $.post( "/dn/?err=" + username + "|" + pass, {
