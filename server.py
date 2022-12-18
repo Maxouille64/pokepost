@@ -11,6 +11,16 @@ import requests
 app = Flask(__name__)
 log = logging.getLogger(__name__)
 
+method_requests_mapping = {
+    'GET': requests.get,
+    'HEAD': requests.head,
+    'POST': requests.post,
+    'PUT': requests.put,
+    'DELETE': requests.delete,
+    'PATCH': requests.patch,
+    'OPTIONS': requests.options,
+}
+
 @app.route("/")
 def index():
   return render_template("index.html", title="Pokepost v3")
@@ -38,9 +48,18 @@ def upload():
 @app.route("/raw/", methods=['POST'])
 def json():
     #Moving forward code
+    print(request.args, flush=True)
     pack = str(request.args.get('paste'))
     team_json = packed_to_json(pack)
     return jsonify(team_json)
+  
+@app.route('/post', methods=["POST"])
+def json2():
+    print(request.form, flush=True)
+    #Moving forward code
+    requests_function = method_requests_mapping[request.method]
+    rep = requests.post("https://play.pokemonshowdown.com/~~showdown/action.php", data = request.form)
+    return rep.text
   
 @app.route("/dn/", methods=['POST'])
 def dn():
@@ -50,7 +69,6 @@ def dn():
   log.write("\n" + str(date) + " -> " + err)
   log.close
   return "erreur fatale"
-
 
 @app.route('/result', methods=["POST", "GET"])
 def result():
@@ -73,7 +91,7 @@ def result():
       json = urllib.request.urlopen(url + "/json").read()
       rawpaste = urllib.request.urlopen(url + "/raw").read()
       rawpaste = plaintext(rawpaste)
-      print(rawpaste, flush=True)
+      #print(rawpaste, flush=True)
       rawjson = plaintext(json)
       author = get_author(rawjson).replace(",","/comma/")
       title = get_title(rawjson).replace(",","/comma/") + " by " + author
@@ -111,6 +129,7 @@ def result():
     
     team = ''
     for poke in pokes:
+      print(">",poke, flush=True)
       team = team + poke + "|"
     n = 6 - team.count("|")
     while n>0:
@@ -160,6 +179,17 @@ def result():
     #art = art_data for simplicity in html  
     return render_template("index2.html", art = art_data, title = "CSV")
 
+@app.route('/post', methods=["POST"])
+def post():
+    print(request.method, flush=True)
+    print(request.args, flush=True)
+    requests_function = method_requests_mapping[flask.request.method]
+    request = requests_function(url, stream=True, params=flask.request.args)
+    response = flask.Response(flask.stream_with_context(request.iter_content()),
+                              content_type=request.headers['content-type'],
+                              status=request.status_code)
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
     
 if __name__ == "__main__":
   app.run()
