@@ -1,5 +1,3 @@
-alert("aaa")
-
 //THIS CODE SHOWS PASTES USING `https://pokepast.es/`
 const tagContainer = document.querySelector('.tag-container');
 const input = document.querySelector('.tag-container input');
@@ -114,7 +112,7 @@ async function Display() {
     //const json = await response1.json();
     const arrCSV = CSV.split('\n').reverse();
     const ul = document.getElementById("myMenu")
-    for (var i = 1, len = arrCSV.length; i < len; i++) {
+    for (var i = 1, len = arrCSV.length-1; i < len; i++) {
       var indice = arrCSV[i].split(",");
       var isprivate = indice[7];
       var username = indice[3];
@@ -170,7 +168,6 @@ async function Display() {
         let l = poke.length;
         console.log(l);
         while (n < l && n < 6) {
-          console.log(S[n]);
           Object.assign(S[n], {
             style: 'margin-left: 2px',
             src: url + poke[n].toLowerCase() + ".png"

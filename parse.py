@@ -3,7 +3,7 @@ from unidecode import unidecode
 import json
 
 def plaintext(url):
-  soup = BeautifulSoup(url)
+  soup = BeautifulSoup(url, features="html.parser")
   text = soup.get_text()
   unicodetext = unidecode(text)
   return unicodetext
@@ -33,10 +33,10 @@ def get_paste(t):
   return data["paste"]
 
 def get_pokes(p):
-  ligne = p.split("\n")
+  sets = p.split("\r\n\r\n")
   team = []
-  for l in ligne:
-    l = l.replace("(M)","").replace("(F)","").replace(" ","")
+  for set in sets:
+    l = set.split("\r\n")[0].replace("(M)","").replace("(F)","").replace(" ","")
     if "(" and ")" in l:
       #print("y " + l)
       l = l[ l.find( '(' )+1 : l.find( ')' ) ]
@@ -44,5 +44,7 @@ def get_pokes(p):
     elif "@" in l:
       #print("n " + l)
       l = l.split("@")[0]
+      team.append(l)
+    else:
       team.append(l)
   return team

