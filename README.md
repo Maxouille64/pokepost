@@ -1,5 +1,7 @@
 # Python Flask + js project
 
+browse now! http://066644.xyz:5000/
+
 Credits :
 - Elsa-mina for some html&css
 - pre for @pkmn/login
