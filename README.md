@@ -1,6 +1,6 @@
 # Python Flask + js project
 
-browse now! http://066644.xyz:5000/
+live now! [pokepost.tk](https://pokepost.066644.xyz/)
 
 Credits :
 - Elsa-mina for some html&css
