@@ -8,6 +8,8 @@ import urllib
 import datetime
 import requests
 
+csv.field_size_limit(131072*2)
+
 app = Flask(__name__)
 log = logging.getLogger(__name__)
 
@@ -180,4 +182,4 @@ def result():
     return render_template("index2.html", art = art_data, title = "CSV")
     
 if __name__ == "__main__":
-  app.run(debug=True, port=5000, host="0.0.0.0")
+    app.run(debug=False, port=80, host="192.168.1.23")
